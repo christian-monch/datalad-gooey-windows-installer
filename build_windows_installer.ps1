@@ -38,6 +38,9 @@ Invoke-WebRequest `
 # Create the installer
 makensis $start_dir\windows-installer-amd64.nsi
 
+# Move it to a known location
+Move-Item datalad-gooey-installer-amd64.exe $start_dir\datalad-gooey-installer-amd64.exe
+
 # Clean up a little
 Remove-Item sources -Recurse -Force
 
