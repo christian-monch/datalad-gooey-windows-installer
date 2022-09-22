@@ -37,7 +37,7 @@ jobs:
           prerelease: false
           release_name: ${{ github.run_id }}
           tag_name: ${{ github.ref }}
-          body_path: CHANGELOG.md
+          body_path: datalad-gui-windows-installer/CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
       
@@ -47,6 +47,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: datalad-gooey-installer-amd64.exe
+          asset_path: datalad-gui-windows-installer/datalad-gooey-installer-amd64.exe
           asset_name: datalad-gooey-installer-amd64.exe
           asset_content_type: application/vnd.microsoft.portable-executable
