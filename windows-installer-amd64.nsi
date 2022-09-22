@@ -3,14 +3,14 @@ Outfile "datalad-gooey-installer-amd64.exe"
 
 Section "git"
     SetOutPath "$TEMP"
-    File /r "sources\Git-2.37.3-64-bit.exe"
-    ExecWait "$TEMP\Git-2.37.3-64-bit.exe"
+    File /r "sources\git-64-bit.exe"
+    ExecWait "$TEMP\git-64-bit.exe"
 SectionEnd
 
 Section "git-annex"
     SetOutPath "$TEMP"
-    File /r "sources\git-annex-installer.exe"
-    ExecWait "$TEMP\git-annex-installer.exe"
+    File /r "sources\git-annex-64-bit.exe"
+    ExecWait "$TEMP\git-annex-64-bit.exe"
 SectionEnd
 
 Section "Python 3.9"
