@@ -1,0 +1,51 @@
+# Deploy manually
+
+name: Build Windows Installer
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  build-installer:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      - name: Checkout installer builder repo
+        uses: actions/checkout@v2
+        with:
+          repository: christian-monch/datalad-gooey-windows-installer
+          path: datalad-gui-windows-installer
+          fetch-depth: 0
+
+      - name: Build installer
+        run: |
+          cd datalad-gui-windows-installer
+          .\build_windows_installer.ps1
+
+      - name: Release installer
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ GITHUB_RUN_ID }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      
+      - name: Upload installer artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: datalad-gooey-installer-amd64.exe
+          asset_name: datalad-gooey-installer-amd64.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
+        
