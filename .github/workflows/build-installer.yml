@@ -29,13 +29,15 @@ jobs:
           cd datalad-gui-windows-installer
           .\build_windows_installer.ps1
 
-      - name: Release installer
+      - name: Create installer release
         uses: actions/create-release@v1
         id: create_release
         with:
           draft: false
           prerelease: false
           release_name: ${{ github.run_id }}
+          tag_name: ${{ github.ref }}
+          body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
       
@@ -48,4 +50,3 @@ jobs:
           asset_path: datalad-gooey-installer-amd64.exe
           asset_name: datalad-gooey-installer-amd64.exe
           asset_content_type: application/vnd.microsoft.portable-executable
-        
