@@ -29,7 +29,7 @@ jobs:
           cd datalad-gui-windows-installer
           .\build_windows_installer.ps1
           $BuildTime = Get-Date -format yyyymmddHHmmss
-          $BuildBranch = git branch --show-current
+          $BuildBranch = git log HEAD...HEAD^1 --pretty=%h
           echo "build_id=$BuildTime-$BuildBranch" >> ${env:GITHUB_ENV}
         shell: powershell
 
