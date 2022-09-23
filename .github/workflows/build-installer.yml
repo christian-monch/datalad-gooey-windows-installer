@@ -27,10 +27,11 @@ jobs:
       - name: Build installer
         run: |
           cd datalad-gui-windows-installer
-          .\build_windows_installer.ps1
-          $BuildTime = Get-Date -format yyyymmddHHmmss
-          $BuildBranch = git log HEAD...HEAD^1 --pretty=%h
-          echo "build_id=$BuildTime-$BuildBranch" >> ${env:GITHUB_ENV}
+          $build_out = .\build_windows_installer.ps1
+          $build_time = Get-Date -format yyyymmddHHmmss
+          $build_branch = echo $build_out|Select-String -Pattern "installed_version:"
+          $build_branch = $build_branch.ToString().Substring(19)
+          echo "build_id=$build_time-$build_branch" >> ${env:GITHUB_ENV}
         shell: powershell
 
       - name: Create installer release

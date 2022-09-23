@@ -20,6 +20,7 @@ Invoke-WebRequest -UseBasicParsing https://bootstrap.pypa.io/get-pip.py -OutFile
 
 # Use pip to install the latest version of datalad-gooey
 .\sources\python39\python.exe -m pip install 'git+https://github.com/datalad/datalad-gooey.git@main'
+$installed_version = .\sources\python39\python.exe -c "import datalad_gooey._version as v; print(v.get_versions()['version'])"
 
 # Copy the icon, git installer, and git-annex installer to "sources" where the script
 # expects them
@@ -45,3 +46,5 @@ Move-Item datalad-gooey-installer-amd64.exe $start_dir\datalad-gooey-installer-a
 Remove-Item sources -Recurse -Force
 
 Pop-Location
+
+Write-Output "installed_version: $installed_version"
