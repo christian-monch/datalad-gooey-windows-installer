@@ -30,8 +30,8 @@ jobs:
           .\build_windows_installer.ps1
           $BuildTime = Get-Date -format yyyymmddHHmmss
           $BuildBranch = git branch --show-current
-          echo build_id="$BuildTime-$BuildBranch" >> $GITHUB_ENV
-          echo build_id="$BuildTime-$BuildBranch"
+          echo "build_id=$BuildTime-$BuildBranch" >> ${env:GITHUB_ENV}
+        shell: powershell
 
       - name: Create installer release
         uses: actions/create-release@v1
