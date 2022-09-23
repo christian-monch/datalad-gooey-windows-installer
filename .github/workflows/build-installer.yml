@@ -6,6 +6,12 @@ name: Build Windows Installer
 # or API.
 on:
   workflow_dispatch:
+    inputs:
+      revision:
+        description: 'Git revision (reference or tag) of datalag-gooey which should be built'
+        required: true
+        default: 'main'
+        type: string
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -27,7 +33,7 @@ jobs:
       - name: Build installer
         run: |
           cd datalad-gui-windows-installer
-          $build_out = .\build_windows_installer.ps1
+          $build_out = .\build_windows_installer.ps1 ${{ inputs.revision }}
           $build_time = Get-Date -format yyyyMMddHHmm
           $build_branch = echo $build_out|Select-String -Pattern "installed_version:"
           $build_branch = $build_branch.ToString().Substring(19)

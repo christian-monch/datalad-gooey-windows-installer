@@ -1,5 +1,9 @@
 #! powershell
 
+Param(
+    [string]$Revision
+)
+
 $start_dir = Get-Location
 
 Push-Location $env:TEMP
@@ -19,7 +23,7 @@ Invoke-WebRequest -UseBasicParsing https://bootstrap.pypa.io/get-pip.py -OutFile
 .\sources\python39\python.exe get-pip.py
 
 # Use pip to install the latest version of datalad-gooey
-.\sources\python39\python.exe -m pip install 'git+https://github.com/datalad/datalad-gooey.git@main'
+.\sources\python39\python.exe -m pip install "git+https://github.com/datalad/datalad-gooey.git@$Revision"
 $installed_version = .\sources\python39\python.exe -c "import datalad_gooey._version as v; print(v.get_versions()['version'])"
 
 # Copy the icon, git installer, and git-annex installer to "sources" where the script
