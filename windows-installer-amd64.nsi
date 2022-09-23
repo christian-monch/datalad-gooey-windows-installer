@@ -1,3 +1,4 @@
+Name "Datalad Gooey"
 
 Outfile "datalad-gooey-installer-amd64.exe"
 
