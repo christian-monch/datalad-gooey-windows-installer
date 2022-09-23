@@ -14,11 +14,6 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
-    env:
-      BuildTime: 00
-      BuildBranch: None
-      BuildId: None
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
@@ -35,15 +30,17 @@ jobs:
           .\build_windows_installer.ps1
           $BuildTime = Get-Date -format yyyymmddHHmmss
           $BuildBranch = git branch --show-current
-          $BuildId = "$BuildTime-$BuildBranch"
+          echo build_id="$BuildTime-$BuildBranch" >> $GITHUB_ENV
+          echo build_id="$BuildTime-$BuildBranch"
+
       - name: Create installer release
         uses: actions/create-release@v1
         id: create_release
         with:
           draft: false
           prerelease: false
-          release_name: ${{ env.BuildId }}
-          tag_name: tag-${{ env.BuildId }}
+          release_name: ${{ env.build_id }}
+          tag_name: tag-${{ env.build_id }}
           body_path: datalad-gui-windows-installer/CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
