@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       revision:
-        description: 'Git revision (reference or tag) of datalag-gooey which should be built'
+        description: 'Git revision (reference, branch, or tag) of datalad-gooey which should be built'
         required: true
         default: 'main'
         type: string
