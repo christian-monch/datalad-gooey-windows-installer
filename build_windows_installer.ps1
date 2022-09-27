@@ -29,6 +29,7 @@ $installed_version = .\sources\python39\python.exe -c "import datalad_gooey._ver
 # Copy the icon, git installer, and git-annex installer to "sources" where the script
 # expects them
 Copy-Item $start_dir\resources\datalad.ico .\sources
+Copy-Item $start_dir\resources\dl.py .\sources\python39\dl.py
 
 # Fetch git for windows installer
 Invoke-WebRequest -UseBasicParsing 'https://github.com/git-for-windows/git/releases/download/v2.37.3.windows.1/Git-2.37.3-64-bit.exe' -OutFile .\sources\git-64-bit.exe
